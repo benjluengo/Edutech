@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,12 +23,15 @@ public class Evaluacion {
 
     @ManyToOne
     @JoinColumn(name = "id_curso", nullable = false)
+    @JsonIgnoreProperties({"evaluaciones", "inscripciones", "docente"})
     private Curso curso;
 
     @ManyToOne
     @JoinColumn(name = "id_docente", nullable = false)
+    @JsonIgnoreProperties({"cursos", "evaluaciones"})
     private Docente docente;
 
     @OneToMany(mappedBy = "evaluacion", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("evaluacion")
     private List<Entrega> entregas = new ArrayList<>();
 }

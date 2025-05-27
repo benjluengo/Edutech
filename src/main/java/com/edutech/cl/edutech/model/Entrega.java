@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "entrega")
@@ -17,10 +18,12 @@ public class Entrega {
 
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
+    @JsonIgnoreProperties({"inscripciones", "entregas", "contraseña"})
     private Usuario usuario;
 
     @ManyToOne
     @JoinColumn(name = "id_evaluacion", nullable = false)
+    @JsonIgnoreProperties({"entregas", "curso", "docente"})
     private Evaluacion evaluacion;
 
     @Column(nullable = false)

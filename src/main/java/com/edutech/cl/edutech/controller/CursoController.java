@@ -103,7 +103,7 @@ public class CursoController {
         return ResponseEntity.ok(Map.of("cantidad", cantidad));
     }
 
-    @PostMapping("/{cursoId}/docentes/{docenteId}")
+    @PostMapping("/{cursoId}/docente/{docenteId}")
     public ResponseEntity<?> asignarDocente(
             @PathVariable Integer cursoId,
             @PathVariable Integer docenteId) {
@@ -135,7 +135,7 @@ public class CursoController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/{cursoId}/docentes")
+    @DeleteMapping("/{cursoId}/docente")
     public ResponseEntity<?> desasignarDocente(@PathVariable Integer cursoId) {
         Optional<Curso> cursoOpt = cursoService.findById(cursoId);
         
@@ -176,27 +176,5 @@ public class CursoController {
         response.put("apellido", docente.getApellido_docente());
 
         return ResponseEntity.ok(response);
-    }
-
-    @PostMapping("/{cursoId}/docentes/{docenteId}")
-    public ResponseEntity<?> asignarDocenteACurso(@PathVariable Integer cursoId, @PathVariable Integer docenteId) {
-        boolean success = docenteService.asignarDocenteACurso(cursoId, docenteId);
-        if (success) {
-            Map<String, String> response = new HashMap<>();
-            response.put("message", "Docente assigned successfully");
-            return ResponseEntity.ok(response);
-        }
-        return ResponseEntity.notFound().build();
-    }
-
-    @DeleteMapping("/{cursoId}/docentes")
-    public ResponseEntity<?> eliminarDocenteDeCurso(@PathVariable Integer cursoId) {
-        boolean success = docenteService.eliminarDocenteDeCurso(cursoId);
-        if (success) {
-            Map<String, String> response = new HashMap<>();
-            response.put("message", "Docente removed successfully");
-            return ResponseEntity.ok(response);
-        }
-        return ResponseEntity.notFound().build();
-    }
-}
+    }    
+  }

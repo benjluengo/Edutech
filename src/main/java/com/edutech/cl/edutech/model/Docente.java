@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,5 +25,6 @@ public class Docente {
     private String apellido_docente;
 
     @OneToMany(mappedBy = "docente", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("docente")
     private List<Curso> cursos = new ArrayList<>();
 }

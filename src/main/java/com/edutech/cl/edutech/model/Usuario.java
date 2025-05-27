@@ -7,6 +7,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 @Table(name = "usuario")
@@ -28,11 +31,14 @@ public class Usuario {
     private String apellido_usuario;
 
     @Column(nullable = false)
+    @JsonProperty(access = Access.WRITE_ONLY)
     private String contraseña;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("usuario")
     private List<Inscripcion> inscripciones;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("usuario")
     private List<Entrega> entregas = new ArrayList<>();
 }

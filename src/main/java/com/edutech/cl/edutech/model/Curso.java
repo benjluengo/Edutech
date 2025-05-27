@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 
 @Entity
@@ -26,12 +27,15 @@ public class Curso {
     private double precio;
 
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("curso")
     private List<Inscripcion> inscripciones;
 
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("curso")
     private List<Evaluacion> evaluaciones;
 
     @ManyToOne
     @JoinColumn(name = "id_docente", nullable = true)
+    @JsonIgnoreProperties("cursos")
     private Docente docente;
 }
