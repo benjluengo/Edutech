@@ -199,13 +199,4 @@ public class CursoController {
         }
         return ResponseEntity.notFound().build();
     }
-
-    @GetMapping("/{cursoId}/docente")
-    public ResponseEntity<Docente> getDocenteByCurso(@PathVariable Integer cursoId) {
-        Optional<Curso> curso = cursoService.findById(cursoId);
-        if (curso.isPresent() && curso.get().getDocente() != null) {
-            return ResponseEntity.ok(curso.get().getDocente());
-        }
-        return ResponseEntity.notFound().build();
-    }
 }
